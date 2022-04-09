@@ -6,6 +6,7 @@
 
 This is a starter or boilerplate to create RESTful API with Python and MongoDB using Flask microframework. The project uses Docker (docker-compose) for easy to use, encapsulated and safe environment.
 
+
 ## Stack
 
 - Python 3.8
