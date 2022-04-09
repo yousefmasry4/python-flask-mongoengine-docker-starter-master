@@ -8,7 +8,7 @@ This is a starter or boilerplate to create RESTful API with Python and MongoDB u
 
 ## Stack
 
-- Python 3
+- Python 3.8
 - Flask
 - Flask-RESTPlus
 - Mongoengine
