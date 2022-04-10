@@ -6,13 +6,15 @@ class BaseConfig:
 
 class Development(BaseConfig):
     PORT = 5100
-    MONGODB_URL = "mongodb://mongodb/dev"
+    MONGODB_URL = "mongodb://admin:admin@cluster0.kkv90.mongodb.net/test"
     DEBUG = True
 
 
 class Testing(BaseConfig):
-    MONGODB_URL = "mongodb://mongodb/test"
+    MONGODB_URL = "mongodb://admin:admin@cluster0.kkv90.mongodb.net/test"
+
 
 
 class Prod(BaseConfig):
-    MONGODB_URL = "mongodb://mongodb/prod"
+    MONGODB_URL = "mongodb://admin:admin@cluster0.kkv90.mongodb.net/test"
+
