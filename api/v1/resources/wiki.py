@@ -1,24 +1,24 @@
 import json
 from flask import abort
 from flask_restx import Namespace, Resource
-from api.v1.database.models import Todo
+from api.v1.database.models import Wiki
 from mongoengine import DoesNotExist
 
-todos = Namespace('v1/todos', description='Todos namespace')
+wikis = Namespace('v1/wiki', description='wiki namespace')
 
 
-@todos.route('/')
-class TodosApi(Resource):
+@wikis.route('/')
+class WikisApi(Resource):
     def get(self):
         '''List all Todos'''
         todos = Todo.objects.all()
         return json.loads(todos.to_json()), 200
 
 
-@todos.route('/<id>')
-@todos.response(404, 'Todo not found')
-@todos.param('id', 'The task identifier')
-class TodoApi(Resource):
+@wikis.route('/<id>')
+@wikis.response(404, 'Todo not found')
+@wikis.param('id', 'The task identifier')
+class WikisApi(Resource):
     def get(self, id):
         '''Fetch a given Todo'''
         try:
