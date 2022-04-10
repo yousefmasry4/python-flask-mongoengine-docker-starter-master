@@ -7,12 +7,11 @@ from mongoengine import DoesNotExist
 news = Namespace('v1/news', description='news namespace')
 
 
-@news.route('/get_all/<page>')
-@news.param('page', 'page number')
+@news.route('/get_all')
 class NewsApi(Resource):
-    def get(self, page):
+    def get(self):
         """List all news"""
-        todos = New.objects.skip((page - 1) * 10).limit(10)
+        todos = New.objects.all()
         return json.loads(todos.to_json()), 200
 
 
