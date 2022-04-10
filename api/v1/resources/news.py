@@ -17,7 +17,7 @@ class NewsApi(Resource):
 
 
 @news.route('/<id>')
-@news.response(404, 'Todo not found')
+@news.response(404, 'new not found')
 @news.param('id', 'The new identifier')
 class NewsApi(Resource):
     def get(self, id):

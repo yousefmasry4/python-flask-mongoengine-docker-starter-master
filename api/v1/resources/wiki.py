@@ -7,24 +7,25 @@ from mongoengine import DoesNotExist
 wikis = Namespace('v1/wiki', description='wiki namespace')
 
 
-@wikis.route('/')
+@wikis.route('/get_all/<page>')
+@wikis.param('page', 'page number')
 class WikisApi(Resource):
-    def get(self):
-        '''List all Todos'''
-        todos = Todo.objects.all()
+    def get(self, page):
+        """List all news"""
+        todos = Wiki.objects.skip((page - 1) * 10).limit(10)
         return json.loads(todos.to_json()), 200
 
 
 @wikis.route('/<id>')
-@wikis.response(404, 'Todo not found')
-@wikis.param('id', 'The task identifier')
+@wikis.response(404, 'Wiki not found')
+@wikis.param('id', 'The Wiki identifier')
 class WikisApi(Resource):
     def get(self, id):
-        '''Fetch a given Todo'''
+        """Fetch a given Wiki"""
         try:
-            todo = Todo.objects.get(id=id)
+            todo = Wiki.objects.get(id=id)
             return json.loads(todo.to_json()), 200
-        except(DoesNotExist):
+        except DoesNotExist:
             abort(404)
         except:
             abort(500)
