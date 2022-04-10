@@ -1,10 +1,11 @@
 # some_file.py
 import sys
 
-# insert at 1, 0 is the script path (or '' in REPL)
 sys.path.insert(0, '/code')
-from api.v1.resources.todos import todos
+from api.v1.resources.wiki import wikis
+from api.v1.resources.news import news
 
 
 def initialize_routes(apis):
-    apis.add_namespace(todos)
+    apis.add_namespace(wikis)
+    apis.add_namespace(news)

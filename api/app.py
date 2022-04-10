@@ -10,7 +10,9 @@ import sys
 sys.path.insert(0, '/code')
 
 app = Flask(__name__)
-connect('app', host=config.MONGODB_URL)
+print(config.MONGODB_URL)
+connect(host=config.MONGODB_URL)
+
 api = Api(app)
 
 initialize_routes(api)
