@@ -1,15 +1,13 @@
 import os
 from flask import Flask
-from flask_restx import Api
+from flask_restplus import Api
 from mongoengine import connect
-from config import Development as config
+from config import *
 from v1.resources.routes import initialize_routes
-# some_file.py
-import sys
-# insert at 1, 0 is the script path (or '' in REPL)
-sys.path.insert(0, '/code')
 
 app = Flask(__name__)
+config = globals()[os.environ['ENV']]
+app.config.from_object(config)
 connect('app', host=config.MONGODB_URL)
 api = Api(app)
 
