@@ -1,7 +1,7 @@
 import json
 from flask import abort
-from flask_restplus import Namespace, Resource
-from v1.database.models import Todo
+from flask_restx import Namespace, Resource
+from api.v1.database.models import Todo
 from mongoengine import DoesNotExist
 
 todos = Namespace('v1/todos', description='Todos namespace')
