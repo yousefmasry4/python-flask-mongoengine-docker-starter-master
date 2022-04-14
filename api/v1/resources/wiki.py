@@ -21,7 +21,8 @@ class WikisApi(Resource):
         # model.title="ddd"
         # model.cat="sd"
         # model.save()
-        """List all news"""
+        """List all news
+        """
         todos = Wiki.objects.all()
         return remove_oid(json.loads(todos.to_json())), 200
 
