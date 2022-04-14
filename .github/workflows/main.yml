@@ -17,6 +17,7 @@ jobs:
           script: |
             cd app
             cd python-flask-mongoengine-docker-starter-master/
+            git -c credential.helper= -c core.quotepath=false -c log.showSignature=false fetch origin --recurse-submodules=no --progress --prune
             git -c credential.helper= -c core.quotepath=false -c log.showSignature=false merge origin/dev --no-stat -v
             docker-compose up --force-recreate --build -d
             echo 'Deployment successful to digital ocean' 
