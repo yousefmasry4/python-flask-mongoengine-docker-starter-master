@@ -6,7 +6,7 @@ from config import Development as config
 from v1.resources.routes import initialize_routes
 # some_file.py
 import sys
-# insert at 1, 0 is the script path (or '' in REPL)
+
 sys.path.insert(0, '/code')
 
 app = Flask(__name__)
