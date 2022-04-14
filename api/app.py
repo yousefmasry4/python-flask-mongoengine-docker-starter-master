@@ -18,4 +18,4 @@ api = Api(app)
 initialize_routes(api)
 
 if __name__ == "__main__":
-    app.run()
+    app.run(port=5100, debug=True)
