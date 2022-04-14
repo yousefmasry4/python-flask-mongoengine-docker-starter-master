@@ -16,3 +16,5 @@ class Wiki(Document):
     cat = StringField(required=True)
     body = StringField(required=True)
 
+    
+

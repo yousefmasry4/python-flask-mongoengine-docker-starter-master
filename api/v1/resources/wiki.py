@@ -4,6 +4,7 @@ from flask_restx import Namespace, Resource, fields
 from api.v1.database.models import Wiki
 from api.v1.database.utils.pagination import Pagination
 from mongoengine import DoesNotExist
+from api.v1.helpers.responses import remove_oid
 
 wikis = Namespace('v1/wiki', description='wiki namespace')
 
@@ -22,7 +23,7 @@ class WikisApi(Resource):
         # model.save()
         """List all news"""
         todos = Wiki.objects.all()
-        return json.loads(todos.to_json()), 200
+        return remove_oid(json.loads(todos.to_json())), 200
 
 
 @wikis.route('/<id>')
@@ -33,7 +34,7 @@ class WikisApi(Resource):
         """Fetch a given Wiki"""
         try:
             todo = Wiki.objects.get(id=id)
-            return json.loads(todo.to_json()), 200
+            return remove_oid(json.loads(todo.to_json())), 200
         except DoesNotExist:
             abort(404)
         except:
