@@ -1,29 +1,23 @@
-from mongoengine import Document, StringField, DateTimeField
+import json
+
+from mongoengine import Document, StringField
 
 
 class New(Document):
     image = StringField(required=True)
     title = StringField(required=True)
     sybTitle = StringField(required=True)
-    date = DateTimeField(required=True)
+    date = StringField(required=True)
     body = StringField(required=True)
 
-    def __init__(self, image, title, sybTitle, date, body):
+    def __init__(self, image, title, sybTitle, date, body, *args, **values):
+        super().__init__(*args, **values)
         self.image = image
         self.title = title
         self.sybTitle = sybTitle
         self.date = date
         self.body = body
 
-    def to_json(self, *args, **kwargs):
-        return {
-            'image': self.image,
-            'title': self.title,
-            'sybTitle': self.sybTitle,
-            'date': self.date,
-            'body': self.body,
-            'id': self.id
-        }
 
 
 class Wiki(Document):
@@ -40,13 +34,4 @@ class Wiki(Document):
         self.cat = cat
         self.body = body
 
-    def to_json(self, *args, **kwargs):
-        return {
-            'image': self.image,
-            'model': self.model,
-            'title': self.title,
-            'cat': self.cat,
-            'body': self.body,
-            'id': self.id
-        }
 

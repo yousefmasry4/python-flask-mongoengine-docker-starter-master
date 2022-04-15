@@ -19,22 +19,24 @@ wikiModel = wikis.model('Wiki', {
     'image': fields.String(required=True, description='Image of the wiki'),
     'model': fields.String(required=True, description='3D Model of the wiki'),
     'body': fields.String(required=True, description='Body of the wiki'),
+    'id': fields.String(required=True, description='ID of the wiki')
 })
 
 
+@wikis.marshal_with(wikiModel)
 @wikis.route('/get_all')
 class WikisApi(Resource):
+    wikiModelGetList = wikis.model('wikiModelGetList', {
+        'title': fields.String(required=True, description='Title of the wiki'),
+        'image': fields.String(required=True, description='Image of the wiki'),
+        'id': fields.String(required=True, description='ID of the wiki')
+    })
+
+    @wikis.response(200, 'Success',[wikiModelGetList])
     def get(self):
-        # model = Wiki()
-        # model.image="https://free3d.com/imgd/l67/595667.jpg"
-        # model.model="https://free3d.com/imgd/l67/595667.jpg"
-        # model.body="asddddddddddddddddddddddddddddddd"
-        # model.title="ddd"
-        # model.cat="sd"
-        # model.save()
         """List all news
         """
-        todos = Wiki.objects.all()
+        todos = Wiki.objects.all().only('title', 'image', 'id')
         return remove_oid(json.loads(todos.to_json())), 200
 
 
@@ -42,6 +44,7 @@ class WikisApi(Resource):
 @wikis.response(404, 'Wiki not found')
 @wikis.param('id', 'The Wiki identifier')
 class WikisApi(Resource):
+    @wikis.response(200, 'Success',wikiModel)
     def get(self, id):
         """Fetch a given Wiki"""
         try:
@@ -49,8 +52,21 @@ class WikisApi(Resource):
             return remove_oid(json.loads(todo.to_json())), 200
         except DoesNotExist:
             abort(404)
+        except Exception as e:
+            print(e)
+            abort(500)
+
+    def delete(self, id):
+        """Delete a given Wiki"""
+        try:
+            todo = Wiki.objects.get(id=id)
+            todo.delete()
+            return '', 204
+        except DoesNotExist:
+            abort(404)
         except:
             abort(500)
+
 
 
 @wikis.route('/add_wiki')
@@ -59,8 +75,10 @@ class WikisApi(Resource):
     my_resource_parser = wikis.parser()
     my_resource_parser.add_argument('title', type=str, required=True, help='Title of the wiki', location='form')
     my_resource_parser.add_argument('cat', type=str, required=True, help='Category of the wiki', location='form')
-    my_resource_parser.add_argument('image', type= werkzeug.datastructures.FileStorage , required=True, help='Image of the wiki', location='files')
-    my_resource_parser.add_argument('model', type=werkzeug.datastructures.FileStorage, required=True, help='3D Model of the wiki', location='files')
+    my_resource_parser.add_argument('image', type=werkzeug.datastructures.FileStorage, required=True,
+                                    help='Image of the wiki', location='files')
+    my_resource_parser.add_argument('model', type=werkzeug.datastructures.FileStorage, required=True,
+                                    help='3D Model of the wiki', location='files')
     my_resource_parser.add_argument('body', type=str, required=True, help='Body of the wiki', location='form')
 
     @wikis.expect(my_resource_parser)
@@ -69,15 +87,13 @@ class WikisApi(Resource):
         args = self.my_resource_parser.parse_args()
         print(args)
 
-        # if Wiki.objects(title=args['title']):
-        #     return {"message": "Wiki already exists"}, 400
-
         fileOfImage = args['image']
-        fileOf3D = args['image']
-        print(os.getcwd())
-        os.chdir("/home/youssef/PycharmProjects/python-flask-mongoengine-docker-starter-master/uploads")
+        fileOf3D = args['model']
+        os.chdir(os.getcwd()+"/uploads/")
+        fileOfImage.stream.seek(0)
         fileOfImage.save(fileOfImage.filename)
-        fileOf3D.save(fileOf3D.filename)
+        fileOfImage.stream.seek(0)
+        fileOf3D.save(fileOf3D.filename, buffer_size=16384)
         model = Wiki(
             title=args['title'],
             cat=args['cat'],
@@ -87,5 +103,3 @@ class WikisApi(Resource):
         )
         model.save()
         return 201
-
-
