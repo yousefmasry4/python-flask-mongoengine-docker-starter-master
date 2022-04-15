@@ -12,7 +12,13 @@ sys.path.insert(0, '/code')
 app = Flask(__name__)
 print(config.MONGODB_URL)
 connect('app', host=config.MONGODB_URL)
-
+# Create directory
+dirName = '../uploads'
+try:
+    # Create target Directory
+    os.mkdir(os.getcwd()+'/'+dirName)
+except FileExistsError:
+    print("Directory " , dirName ,  " already exists")
 api = Api(app)
 
 initialize_routes(api)
