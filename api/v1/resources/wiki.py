@@ -1,6 +1,7 @@
 import argparse
 import json
 import os
+import sys
 
 import werkzeug
 from flask import abort
@@ -60,6 +61,14 @@ class WikisApi(Resource):
         """Delete a given Wiki"""
         try:
             todo = Wiki.objects.get(id=id)
+            try:
+                os.remove("./uploads/"+todo.image)
+            except:
+                pass
+            try:
+                os.remove("./uploads/"+todo.model)
+            except:
+                pass
             todo.delete()
             return '', 204
         except DoesNotExist:
@@ -89,11 +98,10 @@ class WikisApi(Resource):
 
         fileOfImage = args['image']
         fileOf3D = args['model']
-        os.chdir(os.getcwd()+"/uploads/")
         fileOfImage.stream.seek(0)
-        fileOfImage.save(fileOfImage.filename)
+        fileOfImage.save("./uploads/"+fileOfImage.filename)
         fileOfImage.stream.seek(0)
-        fileOf3D.save(fileOf3D.filename, buffer_size=16384)
+        fileOf3D.save("./uploads/"+fileOf3D.filename, buffer_size=16384)
         model = Wiki(
             title=args['title'],
             cat=args['cat'],

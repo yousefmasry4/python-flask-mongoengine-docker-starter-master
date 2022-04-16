@@ -1,5 +1,6 @@
 import json
 import os
+import sys
 
 import werkzeug
 from flask import abort
@@ -52,7 +53,7 @@ class NewsApi(Resource):
         'id': fields.String(required=True, description='id of the news')
     })
 
-    @news.marshal_with( newsGetOne)
+    @news.marshal_with(newsGetOne)
     def get(self, id):
         """Fetch a given new"""
         try:
@@ -67,6 +68,10 @@ class NewsApi(Resource):
         """Delete a given new"""
         try:
             todo = New.objects.get(id=id)
+            try:
+                os.remove("./uploads/"+todo.image)
+            except:
+                pass
             todo.delete()
             return '', 204
         except DoesNotExist:
@@ -93,9 +98,10 @@ class NewsApi(Resource):
 
         fileOfImage = args['image']
         os.chdir(os.getcwd()+"/uploads/")
+
         fileOfImage.stream.seek(0)
 
-        fileOfImage.save(fileOfImage.filename)
+        fileOfImage.save("./uploads/"+fileOfImage.filename)
         fileOfImage.stream.seek(0)
         isoDate = datetime.datetime.now().isoformat()
         model = New(
