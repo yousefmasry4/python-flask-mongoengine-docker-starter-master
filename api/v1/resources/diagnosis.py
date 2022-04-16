@@ -1,6 +1,4 @@
-import werkzeug
-from flask_restx import Namespace, fields, Resource
-from werkzeug.datastructures import FileStorage
+from flask_restx import Namespace, Resource
 
 diagnosis = Namespace('v1/diagnosis', description='X-Ray')
 
