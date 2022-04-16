@@ -7,7 +7,6 @@ from v1.resources.routes import initialize_routes
 # some_file.py
 import sys
 
-sys.path.insert(0, '/code')
 
 app = Flask(__name__,static_url_path='',static_folder='../uploads/',)
 print(app.static_folder)
