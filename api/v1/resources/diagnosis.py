@@ -39,4 +39,5 @@ class Test(Resource):
     @diagnosis.response(200, 'Success', diagnosisResp)
     def post(self):
         args = self.my_resource_parser.parse_args()
+        '''ToDo: Implement the diagnosis logic'''
         return {'message': args['questions']}

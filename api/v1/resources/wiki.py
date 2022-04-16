@@ -61,6 +61,14 @@ class WikisApi(Resource):
         """Delete a given Wiki"""
         try:
             todo = Wiki.objects.get(id=id)
+            try:
+                os.remove("./uploads/"+todo.image)
+            except:
+                pass
+            try:
+                os.remove("./uploads/"+todo.model)
+            except:
+                pass
             todo.delete()
             return '', 204
         except DoesNotExist:

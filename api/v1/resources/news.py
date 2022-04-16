@@ -68,6 +68,10 @@ class NewsApi(Resource):
         """Delete a given new"""
         try:
             todo = New.objects.get(id=id)
+            try:
+                os.remove("./uploads/"+todo.image)
+            except:
+                pass
             todo.delete()
             return '', 204
         except DoesNotExist:
