@@ -98,6 +98,7 @@ class WikisApi(Resource):
 
         fileOfImage = args['image']
         fileOf3D = args['model']
+
         fileOfImage.stream.seek(0)
         fileOfImage.save("./uploads/"+fileOfImage.filename)
         fileOfImage.stream.seek(0)
