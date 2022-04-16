@@ -53,7 +53,7 @@ class NewsApi(Resource):
         'id': fields.String(required=True, description='id of the news')
     })
 
-    @news.marshal_with( newsGetOne)
+    @news.marshal_with(newsGetOne)
     def get(self, id):
         """Fetch a given new"""
         try:
