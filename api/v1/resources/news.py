@@ -97,7 +97,6 @@ class NewsApi(Resource):
         print(args)
 
         fileOfImage = args['image']
-        os.chdir(os.getcwd()+"/uploads/")
 
         fileOfImage.stream.seek(0)
 
