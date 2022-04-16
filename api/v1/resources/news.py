@@ -1,5 +1,6 @@
 import json
 import os
+import sys
 
 import werkzeug
 from flask import abort
@@ -93,9 +94,10 @@ class NewsApi(Resource):
 
         fileOfImage = args['image']
         os.chdir(os.getcwd()+"/uploads/")
+
         fileOfImage.stream.seek(0)
 
-        fileOfImage.save(fileOfImage.filename)
+        fileOfImage.save("./uploads/"+fileOfImage.filename)
         fileOfImage.stream.seek(0)
         isoDate = datetime.datetime.now().isoformat()
         model = New(

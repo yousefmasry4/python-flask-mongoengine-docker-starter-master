@@ -1,7 +1,7 @@
 import sys
 
 
-sys.path.insert(0, '/code')
+sys.path.insert(1, './')
 from api.v1.resources.wiki import wikis
 from api.v1.resources.news import news
 from api.v1.resources.x_ray import x_ray
