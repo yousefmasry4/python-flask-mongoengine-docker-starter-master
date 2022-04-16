@@ -53,7 +53,7 @@ class NewsApi(Resource):
         'id': fields.String(required=True, description='id of the news')
     })
 
-    @news.marshal_with( newsGetOne)
+    @news.marshal_with(newsGetOne)
     def get(self, id):
         """Fetch a given new"""
         try:
@@ -68,6 +68,10 @@ class NewsApi(Resource):
         """Delete a given new"""
         try:
             todo = New.objects.get(id=id)
+            try:
+                os.remove("./uploads/"+todo.image)
+            except:
+                pass
             todo.delete()
             return '', 204
         except DoesNotExist:
