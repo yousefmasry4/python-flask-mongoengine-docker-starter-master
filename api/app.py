@@ -10,7 +10,7 @@ import sys
 
 app = Flask(__name__,static_url_path='',static_folder='../uploads/',)
 print(app.static_folder)
-connect('app', host=config.MONGODB_URL)
+connect(host=config.MONGODB_URL)
 # Create directory
 dirName = '../uploads'
 try:
