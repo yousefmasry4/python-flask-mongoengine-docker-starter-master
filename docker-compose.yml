@@ -5,19 +5,22 @@ services:
     build: .
     ports:
       - 5100:5100
-    depends_on:
-      - mongodb
+#    depends_on:
+#      - mongodb
     environment:
       - ENV=Development
     volumes:
       - .:/code
-  mongodb:
-    image: mongo
-    container_name: example-mongodb
-    ports:
-      - 27017:27017
-    volumes:
-      - db-data:/data/db
+#  mongodb:
+#    image: centos/mongodb-36-centos7
+#    container_name: example-mongodb
+#    ports:
+#      - 27017:27017
+#
+#
+#    volumes:
+#      - db-data:/data/db
+#
 
 volumes:
   db-data:
