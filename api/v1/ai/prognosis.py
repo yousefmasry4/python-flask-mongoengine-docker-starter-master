@@ -38,14 +38,18 @@ class prognosis:
 
         return ans[0][1]
 
+    def prepare(img):
+        IMG_SIZE = 224  # 50 in txt-based
+        img_array = cv2.imread(img)
+        new_array = cv2.resize(img_array, (IMG_SIZE, IMG_SIZE))
+        return new_array.reshape(1, IMG_SIZE, IMG_SIZE, 3)
+    def chest(img):
+        CATEGORIES = ['PNEUMONIA', 'NORMAL']
+        prediction = model.predict([prepare(imgpath)])
+        return  CATEGORIES[np.argmax(prediction)]
+    def brain(img):
+        CATEGORIES = ['PITUITARY', 'NOTUMOR','MENINGGIOMA', 'GLIOMA']
+        prediction = model.predict([prepare(imgpath)])
+        return CATEGORIES[np.argmax(prediction)]
 
 
-
-#myclass = prognosis("/Users/nouromran/Documents/Graduation Project /prognosis/DeathIN10Years/10-year-risk-of-death")
-myclass = prognosis("/Users/nouromran/Documents/Graduation Project /prognosis/DeathIN10Years/Diabetic_Retinopathy")
-input = [ 85.180507 , 120.106129 ,  92.605936 , 125.065534]
-#arr= [ 45.0,	68.0,	441.0,	1.0,	40.6,	10.0,	4.7	,200.0,	115.0,	1.77,	6.6,	2.0	,104.0,	355.0,	32.4,	5.5,	22.683195,	36.0,]
-#print(myclass.ten_years_death(arr))
-#test
-
-print(myclass.Diabetic_Retinopathy(input))
