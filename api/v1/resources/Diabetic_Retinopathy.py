@@ -45,10 +45,10 @@ class ten_years_death(Resource):
     @prognosis.response(200, 'Success', diagnosisResp)
     def post(self):
         args = self.my_resource_parser.parse_args()
-        if len(args["array"]) == 5 and isArrayFloat(args["array"]):
+        if len(args["array"]) == 18 and isArrayFloat(args["array"]):
             ans= a.ten_years_death(args["array"])
             return {'message': ans}
-        return abort(500,'array should be 5 elements and data type is positive float')
+        return abort(500,'array should be 18 elements and data type is positive float')
 
 
 
@@ -77,7 +77,7 @@ class Diabetic_Retinopathy(Resource):
     @prognosis.response(200, 'Success', diagnosisResp)
     def post(self):
         args = self.my_resource_parser.parse_args()
-        if len(args["array"]) == 10 and isArrayFloat(args["array"]):
+        if len(args["array"]) == 4 and isArrayFloat(args["array"]):
             ans = a.Diabetic_Retinopathy(args["array"])
             return {'message': ans}
-        return abort(500,'array should be 10 elements and data type is positive float')
+        return abort(500,'array should be 4 elements and data type is positive float')
