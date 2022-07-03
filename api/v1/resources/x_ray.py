@@ -10,7 +10,7 @@ model = diagnosisAi()
 
 @x_ray.route('/chest')
 @x_ray.response(200, 'Success')
-class XRayTest(Resource):
+class XRayTest1(Resource):
     my_resource_parser = x_ray.parser()
     my_resource_parser.add_argument('image', type=werkzeug.datastructures.FileStorage, required=True,
                                     help='Image of the wiki', location='files')
@@ -35,7 +35,7 @@ class XRayTest(Resource):
 
 @x_ray.route('/brain')
 @x_ray.response(200, 'Success')
-class XRayTest(Resource):
+class XRayTest2(Resource):
     my_resource_parser = x_ray.parser()
     my_resource_parser.add_argument('image', type=werkzeug.datastructures.FileStorage, required=True,
                                     help='Image of the wiki', location='files')
