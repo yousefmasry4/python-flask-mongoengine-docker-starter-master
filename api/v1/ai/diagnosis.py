@@ -4,6 +4,7 @@ import tensorflow as tf
 class diagnosisAi:
     def __init__(self):
         self.model = tf.keras.models.load_model("/code/api/v1/ai/chestv2.h5")
+        self.BrainT = tf.keras.models.load_model("/code/api/v1/ai/BrainT.h5")
 
     @staticmethod
     def prepare(img):
@@ -17,7 +18,7 @@ class diagnosisAi:
         return  CATEGORIES[np.argmax(prediction)]
     def brain(self,img):
         CATEGORIES = ['glioma', 'meningioma','notumor','pituitary']
-        prediction = self.model.predict([self.prepare(img)])
+        prediction = self.BrainT.predict([self.prepare(img)])
         return CATEGORIES[np.argmax(prediction)]
 
 
