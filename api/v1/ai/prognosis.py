@@ -4,7 +4,6 @@ import sklearn
 import os
 class prognosisAi:
     def __init__(self):
-
         filename="/code/api/v1/ai/10-year-risk-of-death"
         with open(filename, 'rb') as file:
             self.p = pickle.load(file)
