@@ -8,7 +8,9 @@ class prognosisAi:
         filename="/code/api/v1/ai/10-year-risk-of-death"
         with open(filename, 'rb') as file:
             self.p = pickle.load(file)
-
+        filename2="/code/api/v1/ai/Diabetic_Retinopathy"
+        with open(filename2, 'rb') as file:
+            self.p2 = pickle.load(file)
     def ten_years_death(self,attributes):
 
         attributes=np.array(attributes)
@@ -36,7 +38,7 @@ class prognosisAi:
         Diastolic_BP_x_Cholesterol = Data_input[2] * Data_input[3]
         Data_input.append(Diastolic_BP_x_Cholesterol)
         print(Data_input)
-        ans = self.p.predict_proba([Data_input])
+        ans = self.p2.predict_proba([Data_input])
 
         return ans[0][1]
 

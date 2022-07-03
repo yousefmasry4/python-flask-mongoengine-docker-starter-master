@@ -16,7 +16,7 @@ class diagnosisAi:
         prediction = self.model.predict([self.prepare(img)])
         return  CATEGORIES[np.argmax(prediction)]
     def brain(self,img):
-        CATEGORIES = ['PITUITARY', 'NOTUMOR','MENINGGIOMA', 'GLIOMA']
+        CATEGORIES = ['glioma', 'meningioma','notumor','pituitary']
         prediction = self.model.predict([self.prepare(img)])
         return CATEGORIES[np.argmax(prediction)]
 
