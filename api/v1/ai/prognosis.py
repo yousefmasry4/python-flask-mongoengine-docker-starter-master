@@ -8,8 +8,8 @@ class prognosisAi:
         with open(filename, 'rb') as file:
             self.p = pickle.load(file)
         filename2="/code/api/v1/ai/Diabetic_Retinopathy"
-        with open(filename2, 'rb') as file:
-            self.p2 = pickle.load(file)
+        with open(filename2, 'rb') as file2:
+            self.p2 = pickle.load(file2)
     def ten_years_death(self,attributes):
 
         attributes=np.array(attributes)
